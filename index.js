@@ -36,6 +36,9 @@ app.post("/login", (req, res) => {
 
 })
 
+app.get("/teste", (req, res) => {
+    res.send("funciona")
+})
 
 app.listen(3001, () => {
     console.log("Servidor Inciado")
