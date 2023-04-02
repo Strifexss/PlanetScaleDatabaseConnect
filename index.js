@@ -15,7 +15,7 @@ console.log('Connected to PlanetScale!')
 app.get("/teste", (req, res) => {
     res.send("funciona")
 })
-
+//TEste
 app.post("/registrar", (req, res, next) => {
     const email = req.body.email
     const nome = req.body.nome
