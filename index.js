@@ -11,6 +11,11 @@ const mysql = require('mysql2')
 const connection = mysql.createConnection(process.env.DATABASE_URL)
 console.log('Connected to PlanetScale!')
 
+
+app.get("/teste", (req, res) => {
+    res.send("funciona")
+})
+
 app.post("/registrar", (req, res, next) => {
     const email = req.body.email
     const nome = req.body.nome
@@ -36,9 +41,7 @@ app.post("/login", (req, res) => {
 
 })
 
-app.get("/teste", (req, res) => {
-    res.send("funciona")
-})
+
 
 app.listen(3001, () => {
     console.log("Servidor Inciado")
