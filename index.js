@@ -7,7 +7,7 @@ app.use(cors(
         origin: "*"
     }
 ));
-
+//asd
 app.use(express.json())
 
 require('dotenv').config()
