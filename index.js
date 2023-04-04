@@ -2,7 +2,12 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 
-app.use(cors())
+app.use(cors(
+    {
+        origin: "*"
+    }
+));
+
 app.use(express.json())
 
 require('dotenv').config()
@@ -21,6 +26,7 @@ app.post("/registrar", (req, res, next) => {
     const senha = req.body.senha
 
     connection.query(`Insert into login (email, nome, senha) values ("${email}", "${nome}", "${senha}");`, (err, result) => {
+       
         res.send(err)
         res.send(result)
         console.log(err)
