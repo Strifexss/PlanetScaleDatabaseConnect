@@ -15,7 +15,7 @@ app.get("/teste", (req, res) => {
     res.send("funciona")
 })
 
-app.post("/registrar", (req, res) => {
+app.post("/registrar", (req, res, next) => {
     const email = req.body.email
     const nome = req.body.nome
     const senha = req.body.senha
