@@ -61,7 +61,7 @@ app.post("/registrarClientes", (req, res) => {
     const telefone = req.body.telefone
     const objetivo = req.body.objetivo
 
-    connection.query(`insert into clientes (nome, email, telefone, peso, altura, objetivo) values ("${nome}", "${email}", "${telefone}", "${altura}", "${peso}", "${objetivo}");`, (err, result) => {
+    connection.query(`insert into clientes (nome, email, telefone, peso, altura, objetivo) values ("${nome}", "${email}", "${telefone}", "${peso}", "${altura}", "${objetivo}");`, (err, result) => {
         res.send(result)
         console.log(result)
         console.log(err)
