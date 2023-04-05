@@ -45,6 +45,13 @@ app.post("/login", (req, res) => {
 
 })
 
+app.get("/buscarClientes", (req, res) => {
+    connection.query("select * from clientes;", (err, result) => {
+        res.send(result)
+        console.log(result)
+        console.log(err)
+    })
+})
 
 
 app.listen(3001, () => {
