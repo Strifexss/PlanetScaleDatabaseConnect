@@ -53,6 +53,20 @@ app.get("/buscarClientes", (req, res) => {
     })
 })
 
+app.post("/registrarClientes", (req, res) => {
+    const email = req.body.email
+    const peso = req.body.peso
+    const nome = req.body.nome
+    const altura = req.body.altura
+    const telefone = req.body.telefone
+    const objetivo = req.body.objetivo
+
+    connection.query(`insert into clientes (nome, email, telefone, peso, altura, objetivo) values ("${nome}", "${email}", "${telefone}", "${altura}", "${peso}", "${objetivo}");`, (err, result) => {
+        res.send(result)
+        console.log(result)
+        console.log(err)
+    })
+})
 
 app.listen(3001, () => {
     console.log("Servidor Inciado")
