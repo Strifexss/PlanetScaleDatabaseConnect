@@ -68,6 +68,14 @@ app.post("/registrarClientes", (req, res) => {
     })
 })
 
+app.get("/buscarAulas", (req, res) => {
+    connection.query("select * from aulas", (err, result) => {
+        console.log(err)
+        console.log(result)
+        res.send(result)
+    })
+})
+
 app.listen(3001, () => {
     console.log("Servidor Inciado")
 })
