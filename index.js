@@ -76,6 +76,19 @@ app.get("/buscarAulas", (req, res) => {
     })
 })
 
+app.post("/adicionarAulas", (req, res) => {
+    const nome = req.body.nome
+    const descricao = req.body.descricao
+    const nivel = req.body.nivel
+    const duracao = req.body.duracao
+
+    connection.query(`insert into aulas (nome, descricao, nivel, duracao) values ("${nome}", "${descricao}", "${nivel}", "${duracao}");`, (err, result) => {
+        res.send(result)
+        console.log(err)
+        console.log(result)
+    })
+})
+
 app.listen(3001, () => {
     console.log("Servidor Inciado")
 })
