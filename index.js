@@ -46,7 +46,7 @@ app.post("/login", (req, res) => {
 })
 
 app.get("/buscarClientes", (req, res) => {
-    connection.query("select * from clientes;", (err, result) => {
+    connection.query("select * from clientes inner join planos on clientes.planos_id = planos.id;", (err, result) => {
         res.send(result)
         console.log(result)
         console.log(err)
@@ -60,8 +60,8 @@ app.post("/registrarClientes", (req, res) => {
     const altura = req.body.altura
     const telefone = req.body.telefone
     const objetivo = req.body.objetivo
-
-    connection.query(`insert into clientes (nome, email, telefone, peso, altura, objetivo) values ("${nome}", "${email}", "${telefone}", "${peso}", "${altura}", "${objetivo}");`, (err, result) => {
+    const planosId = req.body.planosId
+    connection.query(`insert into clientes (nome, email, telefone, peso, altura, objetivo, planos_id) values ("${nome}", "${email}", "${telefone}", "${peso}", "${altura}", "${objetivo}", ${planosId});`, (err, result) => {
         res.send(result)
         console.log(result)
         console.log(err)
@@ -86,6 +86,24 @@ app.post("/adicionarAulas", (req, res) => {
         res.send(result)
         console.log(err)
         console.log(result)
+    })
+})
+
+app.get("/buscarPlanos", (req, res) => {
+    connection.query("select * from planos;", (err, result) => {
+        console.log(result)
+        console.log(err)
+        res.send(result)
+    })
+})
+
+app.post("/deletarCliente", (req, res) => {
+    const email = req.body.email
+
+    connection.query(`DELETE FROM clientes WHERE email="${email}";`, (err, result) => {
+        console.log(result)
+        console.log(err)
+        res.send(result)
     })
 })
 
