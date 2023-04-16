@@ -129,6 +129,15 @@ app.post("/registrarProfessores", (req, res) => {
 })
 
 
+app.get("/buscarAulasSemanais", (req, res) => {
+
+    connection.query("select * from aulas_dia_semana inner join funcionarios on aulas_dia_semana.id_funcionario = funcionarios.id inner join aulas on aulas_dia_semana.id_aula = aulas.id;", (err, result) => {
+        console.log(result)
+        console.log(err)
+        res.send(result)
+    })
+})
+
 app.listen(3001, () => {
     console.log("Servidor Inciado")
 })
