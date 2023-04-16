@@ -107,6 +107,28 @@ app.post("/deletarCliente", (req, res) => {
     })
 })
 
+app.get("/buscarProfessores", (req, res) => {
+
+    connection.query("select * from funcionarios", (err, result) => {
+        console.log(result)
+        console.log(err)
+        res.send(result)
+    })
+})
+
+app.post("/registrarProfessores", (req, res) => {
+    const email = req.body.email
+    const nome = req.body.nome
+    const telefone = req.body.telefone
+    const salario = req.body.salario
+    connection.query(`insert into funcionarios (nome, email, telefone, salario, data_contratacao) values ("${nome}", "${email}", "${telefone}", ${salario}, now());`, (err, result) => {
+        res.send(result)
+        console.log(result)
+        console.log(err)
+    })
+})
+
+
 app.listen(3001, () => {
     console.log("Servidor Inciado")
 })
