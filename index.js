@@ -128,6 +128,20 @@ app.post("/registrarProfessores", (req, res) => {
     })
 })
 
+app.post("/adicionarSemana", (req, res) => {
+    const professor = req.body.professor
+    const aula = req.body.aula
+    const fim = req.body.fim
+    const dia = req.body.dia
+    const inicio = req.body.inicio
+
+    connection.query(`insert into aulas_dia_semana (dia_semana, hora_inicio, hora_fim, id_funcionario, id_aula) values ("${dia}", ${inicio}, ${fim}, ${professor}, ${aula})`, (err, result) => {
+        res.send(result)
+        console.log(result)
+        console.log(err)
+    })
+})
+
 
 app.get("/buscarAulasSemanais", (req, res) => {
 
@@ -137,6 +151,8 @@ app.get("/buscarAulasSemanais", (req, res) => {
         res.send(result)
     })
 })
+
+
 
 app.listen(3001, () => {
     console.log("Servidor Inciado")
