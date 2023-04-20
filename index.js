@@ -152,6 +152,15 @@ app.get("/buscarAulasSemanais", (req, res) => {
     })
 })
 
+app.post("/deletarCalendario", (req, res) => {
+  const id = req.body.id
+
+    connection.query(`DELETE FROM aulas_dia_semana WHERE id_dia_semana=${id};`, (err, result) => {
+        console.log(err)
+        console.log(result)
+        res.send(result)
+    })
+})
 
 
 app.listen(3001, () => {
