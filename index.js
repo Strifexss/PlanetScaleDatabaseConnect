@@ -45,8 +45,9 @@ app.post("/login", (req, res) => {
 
 })
 
-app.get("/buscarClientes", (req, res) => {
-    connection.query("select * from clientes inner join planos on clientes.planos_id = planos.id;", (err, result) => {
+app.post("/buscarClientes", (req, res) => {
+    const id_usuario = req.body.id_usuario
+    connection.query(`select * from clientes inner join planos on clientes.planos_id = planos.id where id_login = ${id_usuario};`, (err, result) => {
         res.send(result)
         console.log(result)
         console.log(err)
@@ -61,15 +62,17 @@ app.post("/registrarClientes", (req, res) => {
     const telefone = req.body.telefone
     const objetivo = req.body.objetivo
     const planosId = req.body.planosId
-    connection.query(`insert into clientes (nome, email, telefone, peso, altura, objetivo, planos_id) values ("${nome}", "${email}", "${telefone}", "${peso}", "${altura}", "${objetivo}", ${planosId});`, (err, result) => {
+    const id_usuario = req.body.id_usuario
+    connection.query(`insert into clientes (nome, email, telefone, peso, altura, objetivo, planos_id, id_login) values ("${nome}", "${email}", "${telefone}", "${peso}", "${altura}", "${objetivo}", ${planosId}, ${id_usuario});`, (err, result) => {
         res.send(result)
         console.log(result)
         console.log(err)
     })
 })
 
-app.get("/buscarAulas", (req, res) => {
-    connection.query("select * from aulas", (err, result) => {
+app.post("/buscarAulas", (req, res) => {
+    const id_usuario = req.body.id_usuario
+    connection.query(`select * from aulas where id_usuario = ${id_usuario};`, (err, result) => {
         console.log(err)
         console.log(result)
         res.send(result)
@@ -81,8 +84,8 @@ app.post("/adicionarAulas", (req, res) => {
     const descricao = req.body.descricao
     const nivel = req.body.nivel
     const duracao = req.body.duracao
-
-    connection.query(`insert into aulas (nome, descricao, nivel, duracao) values ("${nome}", "${descricao}", "${nivel}", "${duracao}");`, (err, result) => {
+    const id_usuario = req.body.id_usuario
+    connection.query(`insert into aulas (nome, descricao, nivel, duracao, id_usuario) values ("${nome}", "${descricao}", "${nivel}", "${duracao}", ${id_usuario});`, (err, result) => {
         res.send(result)
         console.log(err)
         console.log(result)
@@ -107,9 +110,9 @@ app.post("/deletarCliente", (req, res) => {
     })
 })
 
-app.get("/buscarProfessores", (req, res) => {
-
-    connection.query("select * from funcionarios", (err, result) => {
+app.post("/buscarProfessores", (req, res) => {
+    const id_usuario = req.body.id_usuario
+    connection.query(`select * from funcionarios where id_usuario = ${id_usuario}; `, (err, result) => {
         console.log(result)
         console.log(err)
         res.send(result)
@@ -121,7 +124,8 @@ app.post("/registrarProfessores", (req, res) => {
     const nome = req.body.nome
     const telefone = req.body.telefone
     const salario = req.body.salario
-    connection.query(`insert into funcionarios (nome, email, telefone, salario, data_contratacao) values ("${nome}", "${email}", "${telefone}", ${salario}, now());`, (err, result) => {
+    const id_usuario = req.body.id_usuario
+    connection.query(`insert into funcionarios (nome, email, telefone, salario, data_contratacao, id_usuario) values ("${nome}", "${email}", "${telefone}", ${salario}, now(), ${id_usuario});`, (err, result) => {
         res.send(result)
         console.log(result)
         console.log(err)
@@ -134,8 +138,8 @@ app.post("/adicionarSemana", (req, res) => {
     const fim = req.body.fim
     const dia = req.body.dia
     const inicio = req.body.inicio
-
-    connection.query(`insert into aulas_dia_semana (dia_semana, hora_inicio, hora_fim, id_funcionario, id_aula) values ("${dia}", ${inicio}, ${fim}, ${professor}, ${aula})`, (err, result) => {
+    const id_usuario = req.body.id_usuario
+    connection.query(`insert into aulas_dia_semana (dia_semana, hora_inicio, hora_fim, id_funcionario, id_aula, id_usuario) values ("${dia}", ${inicio}, ${fim}, ${professor}, ${aula}, ${id_usuario})`, (err, result) => {
         res.send(result)
         console.log(result)
         console.log(err)
@@ -143,9 +147,9 @@ app.post("/adicionarSemana", (req, res) => {
 })
 
 
-app.get("/buscarAulasSemanais", (req, res) => {
-
-    connection.query("select * from aulas_dia_semana inner join funcionarios on aulas_dia_semana.id_funcionario = funcionarios.id inner join aulas on aulas_dia_semana.id_aula = aulas.id;", (err, result) => {
+app.post("/buscarAulasSemanais", (req, res) => {
+    const id_usuario = req.body.id_usuario
+    connection.query(`select * from aulas_dia_semana inner join funcionarios on aulas_dia_semana.id_funcionario = funcionarios.id inner join aulas on aulas_dia_semana.id_aula = aulas.id where aulas_dia_semana.id_usuario=${id_usuario};`, (err, result) => {
         console.log(result)
         console.log(err)
         res.send(result)
