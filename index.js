@@ -45,9 +45,11 @@ app.post("/login", (req, res) => {
 
 })
 
+
+
 app.post("/buscarClientes", (req, res) => {
     const id_usuario = req.body.id_usuario
-    connection.query(`select * from clientes inner join planos on clientes.planos_id = planos.id where id_login = ${id_usuario};`, (err, result) => {
+    connection.query(`select * from clientes left join planos on clientes.planos_id = planos.id where id_login = ${id_usuario};`, (err, result) => {
         res.send(result)
         console.log(result)
         console.log(err)
@@ -92,8 +94,11 @@ app.post("/adicionarAulas", (req, res) => {
     })
 })
 
-app.get("/buscarPlanos", (req, res) => {
-    connection.query("select * from planos;", (err, result) => {
+
+
+app.post("/buscarPlanos", (req, res) => {
+    const id_usuario = req.body.id_usuario
+    connection.query(`select * from planos where id_usuario=${id_usuario};`, (err, result) => {
         console.log(result)
         console.log(err)
         res.send(result)
