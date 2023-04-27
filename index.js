@@ -95,10 +95,33 @@ app.post("/adicionarAulas", (req, res) => {
 })
 
 
-
 app.post("/buscarPlanos", (req, res) => {
     const id_usuario = req.body.id_usuario
     connection.query(`select * from planos where id_usuario=${id_usuario};`, (err, result) => {
+        console.log(result)
+        console.log(err)
+        res.send(result)
+    })
+})
+
+app.post("/adicionarPlanos", (req, res) => {
+    const nome = req.body.nome
+    const descricao = req.body.descricao
+    const preco = req.body.preco
+    const dias = req.body.dias
+    const id_usuario = req.body.id_usuario
+
+    connection.query(`insert into planos (nomePlanos, descricao, preco, duracao_dias, data_criacao, id_usuario) values ("${nome}", "${descricao}", ${preco}, ${dias}, now(), ${id_usuario});`, (err, result) => {
+        console.log(err)
+        console.log(result)
+        res.send(result)
+    })
+})
+
+app.post("/deletarPlanos", (req, res) => {
+    const id = req.body.id
+
+    connection.query(`delete from planos where id=${id}`, (err, result) => {
         console.log(result)
         console.log(err)
         res.send(result)
@@ -134,6 +157,16 @@ app.post("/registrarProfessores", (req, res) => {
         res.send(result)
         console.log(result)
         console.log(err)
+    })
+})
+
+app.post("/deletarProfessores", (req, res) => {
+    const id = req.body.id
+
+    connection.query(`delete from funcionarios where id=${id};`, (err, result) => {
+        console.log(err)
+        console.log(result)
+        res.send(result)
     })
 })
 
