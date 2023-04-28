@@ -204,6 +204,37 @@ app.post("/deletarCalendario", (req, res) => {
     })
 })
 
+app.post("/buscarCompromissos", (req, res) => {
+    const id = req.body.id
+
+    connection.query(`select * from compromissos where id_usuario = ${id};`, (err, result) => {
+        console.log(err)
+        console.log(result)
+        res.send(result)
+    })
+})
+
+app.post("/adicionarCompromissos", (req, res) => {
+    const nome = req.body.nome
+    const descricao = req.body.descricao
+    const id_usuario = req.body.id_usuario
+    
+    connection.query(`insert into compromissos (nome, descricao, id_usuario) values ("${nome}", "${descricao}", ${id_usuario});`, (err, result) => {
+        console.log(err)
+        console.log(result)
+        res.send(result)
+    })
+})
+
+app.post("/deletarCompromissos", (req, res) => {
+    const id = req.body.id
+
+    connection.query(`delete from compromissos where id = ${id};`, (err, result) => {
+        console.log(result)
+        console.log(err)
+        res.send(result)
+    })
+})
 
 app.listen(3001, () => {
     console.log("Servidor Inciado")
