@@ -90,6 +90,17 @@ app.post("/adicionarAulas", (req, res) => {
     })
 })
 
+app.post("/deletarAulas", (req, res) => {
+    const id_aula = req.body.id_aula
+    const id_usuario = req.body.id_usuario
+
+    connection.query(`delete from aulas where id = ${id_aula} and id_usuario = ${id_usuario};`, (err, result) => {
+        console.log(err)
+        console.log(result)
+        res.send(result)
+    })
+
+})
 
 app.post("/buscarPlanos", (req, res) => {
     const id_usuario = req.body.id_usuario
@@ -231,6 +242,8 @@ app.post("/deletarCompromissos", (req, res) => {
         res.send(result)
     })
 })
+
+
 
 app.listen(3001, () => {
     console.log("Servidor Inciado")
