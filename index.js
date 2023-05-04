@@ -68,6 +68,17 @@ app.post("/registrarClientes", (req, res) => {
     })
 })
 
+app.post("/modificarClientes", (req, res) => {
+    const nome = req.body.nome
+    const cliente_id = req.body.cliente_id
+    
+    connection.query(`update clientes set nome = "${nome}" where cliente_id = ${cliente_id}`, (err, result) => {
+        console.log(err)
+        console.log(result)
+        res.send(result)
+    })
+})
+
 app.post("/buscarAulas", (req, res) => {
     const id_usuario = req.body.id_usuario
     connection.query(`select * from aulas where id_usuario = ${id_usuario};`, (err, result) => {
