@@ -105,6 +105,19 @@ app.post("/adicionarAulas", (req, res) => {
     })
 })
 
+app.post("/modificarAulas", (req, res) => {
+    const nome = req.body.nome
+    const descricao = req.body.descricao
+    const nivel = req.body.nivel
+    const duracao = parseInt(req.body.duracao)
+    const id = req.body.id
+    connection.query(`update aulas set nome = "${nome}", descricao = "${descricao}", duracao = ${duracao}, nivel = "${nivel}" where id = ${id}`, (err, result) => {
+        console.log(err)
+        console.log(result)
+        res.send(result)
+    })
+})
+
 app.post("/deletarAulas", (req, res) => {
     const id_aula = req.body.id_aula
     const id_usuario = req.body.id_usuario
