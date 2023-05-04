@@ -71,8 +71,12 @@ app.post("/registrarClientes", (req, res) => {
 app.post("/modificarClientes", (req, res) => {
     const nome = req.body.nome
     const cliente_id = req.body.cliente_id
-    
-    connection.query(`update clientes set nome = "${nome}" where cliente_id = ${cliente_id}`, (err, result) => {
+    const email = req.body.email
+    const telefone = req.body.telefone
+    const objetivo = req.body.objetivo
+    const peso = req.body.peso
+    const altura = req.body.altura
+    connection.query(`update clientes set nome = "${nome}", email = "${email}", telefone = "${telefone}", objetivo = "${objetivo}", peso = ${peso}, altura = ${altura} where cliente_id = ${cliente_id}`, (err, result) => {
         console.log(err)
         console.log(result)
         res.send(result)
