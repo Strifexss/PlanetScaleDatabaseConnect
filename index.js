@@ -3,7 +3,7 @@ const app = express()
 const cors = require('cors')
 
 app.use(cors());
-//asd
+
 app.use(express.json())
 
 require('dotenv').config()
@@ -220,9 +220,12 @@ app.post("/deletarProfessores", (req, res) => {
 
 app.post("/editarProfessores", (req, res) => {
     const nome = req.body.nome
+    const email = req.body.email
+    const telefone = req.body.telefone
+    const salario = req.body.salario
     const id = req.body.id
-
-    connection.query(`update funcionarios set nome = "${nome}" where id = ${id}`, (err, result) => {
+    
+    connection.query(`update funcionarios set nome = "${nome}", email = "${email}", telefone = ${telefone}, salario = ${salario} where id = ${id}`, (err, result) => {
         console.log(result)
         console.log(err)
         res.send(result)
