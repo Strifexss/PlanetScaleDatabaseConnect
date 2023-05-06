@@ -163,9 +163,22 @@ app.post("/deletarPlanos", (req, res) => {
     })
 })
 
+app.post("/editarPlanos", (req, res) => {
+    const nome = req.body.nome
+    const id = req.body.id
+    const valor = req.body.valor
+    const duracao = req.body.duracao
+    const descricao = req.body.descricao
+    connection.query(`update planos set nomePlanos = "${nome}", descricao = "${descricao}", duracao_dias = ${duracao}, preco = ${valor} where id = ${id}`, (err, result) => {
+        console.log(err)
+        console.log(result)
+        res.send(result)
+    })
+
+})
+
 app.post("/deletarCliente", (req, res) => {
     const email = req.body.email
-
     connection.query(`DELETE FROM clientes WHERE email="${email}";`, (err, result) => {
         console.log(result)
         console.log(err)
@@ -201,6 +214,17 @@ app.post("/deletarProfessores", (req, res) => {
     connection.query(`delete from funcionarios where id=${id};`, (err, result) => {
         console.log(err)
         console.log(result)
+        res.send(result)
+    })
+})
+
+app.post("/editarProfessores", (req, res) => {
+    const nome = req.body.nome
+    const id = req.body.id
+
+    connection.query(`update funcionarios set nome = "${nome}" where id = ${id}`, (err, result) => {
+        console.log(result)
+        console.log(err)
         res.send(result)
     })
 })
