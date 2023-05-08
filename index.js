@@ -13,7 +13,11 @@ console.log('Connected to PlanetScale!')
 
 
 app.get("/teste", (req, res) => {
-    res.send("funciona")
+    
+    connection.query('select * from diasTeste', (err, result) => {
+        res.send(result)
+        console.log(err)
+    })
 })
 
 app.post("/registrar", (req, res) => {
@@ -49,6 +53,40 @@ app.post("/buscarClientes", (req, res) => {
         res.send(result)
         console.log(result)
         console.log(err)
+    })
+})
+
+app.post("/buscarAlunoEspecifico", (req, res) => {
+    const id_aluno = req.body.id_aluno
+    connection.query(`Select * from clientes where cliente_id = ${id_aluno}`, (err, result) => {
+        console.log(err)
+        console.log(result)
+        res.send(result)
+    })
+})
+
+app.post("/criarAulaAluno", (req, res) => {
+    const id_aluno = req.body.id_aluno
+    const dia = req.body.dia
+    const exercicio_1 = req.body.exercicio_1
+    const exercicio_2 = req.body.exercicio_2
+    const exercicio_3 = req.body.exercicio_3
+    const exercicio_4 = req.body.exercicio_4
+    const exercicio_5 = req.body.exercicio_5
+    connection.query(`insert into exercicios_alunos (aluno_id, dia_semana, exercicio_1, exercicio_2, exercicio_3, exercicio_4, exercicio_5) values (${id_aluno}, "${dia}", "${exercicio_1}", "${exercicio_2}", "${exercicio_3}", "${exercicio_4}", "${exercicio_5}");`, 
+    (err, result) => {
+        console.log(err)
+        console.log(result)
+        res.send(result)
+    })
+})
+
+app.post("/buscarAulasAluno", (req, res) => {
+    const id_aluno = req.body.id_aluno
+    connection.query(`select * from exercicios_alunos where aluno_id = ${id_aluno};`, (err, result) => {
+        console.log(err)
+        console.log(result)
+        res.send(result)
     })
 })
 
