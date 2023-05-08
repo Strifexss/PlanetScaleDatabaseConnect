@@ -90,6 +90,22 @@ app.post("/buscarAulasAluno", (req, res) => {
     })
 })
 
+app.post("/ModificarAulasAluno", (req, res) => {
+    const id = req.body.id
+    const dia_semana = req.body.dia_semana
+    const exercicio_1 = req.body.exercicio_1
+    const exercicio_2 = req.body.exercicio_2
+    const exercicio_3 = req.body.exercicio_3
+    const exercicio_4 = req.body.exercicio_4
+    const exercicio_5 = req.body.exercicio_5
+
+    connection.query(`update exercicios_alunos set dia_semana = "${dia_semana}", exercicio_1 = "${exercicio_1}", exercicio_2 = "${exercicio_2}", exercicio_3 = "${exercicio_3}", exercicio_4 = "${exercicio_4}", exercicio_5 = "${exercicio_5}" where id = ${id}`, (err, result) => {
+        console.log(err)
+        console.log(result)
+        res.send(result)
+    })
+})
+
 app.post("/registrarClientes", (req, res) => {
     const email = req.body.email
     const peso = req.body.peso
