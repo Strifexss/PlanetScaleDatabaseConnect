@@ -45,6 +45,16 @@ app.post("/login", (req, res) => {
 
 })
 
+app.post("/loginProfessor", (req, res) => {
+
+    const email = req.body.email
+
+    connection.query(`select * from funcionarios where email="${email}"`, (err, result) => {
+        console.log(result)
+        console.log(err)
+        res.send(result)
+    }) 
+})
 
 
 app.post("/buscarClientes", (req, res) => {
