@@ -74,7 +74,12 @@ app.post("/criarAulaAluno", (req, res) => {
     const exercicio_3 = req.body.exercicio_3
     const exercicio_4 = req.body.exercicio_4
     const exercicio_5 = req.body.exercicio_5
-    connection.query(`insert into exercicios_alunos (aluno_id, dia_semana, exercicio_1, exercicio_2, exercicio_3, exercicio_4, exercicio_5) values (${id_aluno}, "${dia}", "${exercicio_1}", "${exercicio_2}", "${exercicio_3}", "${exercicio_4}", "${exercicio_5}");`, 
+    const nomeExercicio1 = req.body.nomeExercicio1
+    const nomeExercicio2 = req.body.nomeExercicio2
+    const nomeExercicio3 = req.body.nomeExercicio3
+    const nomeExercicio4 = req.body.nomeExercicio4
+    const nomeExercicio5 = req.body.nomeExercicio5
+    connection.query(`insert into exercicios_alunos (aluno_id, dia_semana, exercicio_1, exercicio_2, exercicio_3, exercicio_4, exercicio_5, nomeExercicio1, nomeExercicio2, nomeExercicio3, nomeExercicio4, nomeExercicio5) values (${id_aluno}, "${dia}", "${exercicio_1}", "${exercicio_2}", "${exercicio_3}", "${exercicio_4}", "${exercicio_5}", "${nomeExercicio1}", "${nomeExercicio2}", "${nomeExercicio3}", "${nomeExercicio4}", "${nomeExercicio5}");`, 
     (err, result) => {
         console.log(err)
         console.log(result)
@@ -99,12 +104,26 @@ app.post("/ModificarAulasAluno", (req, res) => {
     const exercicio_3 = req.body.exercicio_3
     const exercicio_4 = req.body.exercicio_4
     const exercicio_5 = req.body.exercicio_5
-
-    connection.query(`update exercicios_alunos set dia_semana = "${dia_semana}", exercicio_1 = "${exercicio_1}", exercicio_2 = "${exercicio_2}", exercicio_3 = "${exercicio_3}", exercicio_4 = "${exercicio_4}", exercicio_5 = "${exercicio_5}" where id = ${id}`, (err, result) => {
+    const nomeExercicio1 = req.body.nomeExercicio_1
+    const nomeExercicio2 = req.body.nomeExercicio_2
+    const nomeExercicio3 = req.body.nomeExercicio_3
+    const nomeExercicio4 = req.body.nomeExercicio_4
+    const nomeExercicio5 = req.body.nomeExercicio_5
+    connection.query(`update exercicios_alunos set dia_semana = "${dia_semana}", exercicio_1 = "${exercicio_1}", exercicio_2 = "${exercicio_2}", exercicio_3 = "${exercicio_3}", exercicio_4 = "${exercicio_4}", exercicio_5 = "${exercicio_5}", nomeExercicio1 = "${nomeExercicio1}", nomeExercicio2 = "${nomeExercicio2}", nomeExercicio3 = "${nomeExercicio3}", nomeExercicio4 = "${nomeExercicio4}", nomeExercicio5 = "${nomeExercicio5}" where id = ${id}`, (err, result) => {
         console.log(err)
         console.log(result)
         res.send(result)
     })
+})
+
+app.post("/excluirAulasAluno", (req, res) => {
+    const id = req.body.id
+    
+    connection.query(`delete from exercicios_alunos where id = ${id}`, (err, result) => {
+        console.log(err)
+        console.log(result)
+    })
+    
 })
 
 app.post("/registrarClientes", (req, res) => {
@@ -255,8 +274,9 @@ app.post("/registrarProfessores", (req, res) => {
     const nome = req.body.nome
     const telefone = req.body.telefone
     const salario = req.body.salario
+    const senha = req.body.senha
     const id_usuario = req.body.id_usuario
-    connection.query(`insert into funcionarios (nome, email, telefone, salario, data_contratacao, id_usuario) values ("${nome}", "${email}", "${telefone}", ${salario}, now(), ${id_usuario});`, (err, result) => {
+    connection.query(`insert into funcionarios (nome, email, telefone, salario, data_contratacao, id_usuario, senha) values ("${nome}", "${email}", "${telefone}", ${salario}, now(), ${id_usuario}, "${senha}");`, (err, result) => {
         res.send(result)
         console.log(result)
         console.log(err)
@@ -279,8 +299,8 @@ app.post("/editarProfessores", (req, res) => {
     const telefone = req.body.telefone
     const salario = req.body.salario
     const id = req.body.id
-    
-    connection.query(`update funcionarios set nome = "${nome}", email = "${email}", telefone = ${telefone}, salario = ${salario} where id = ${id}`, (err, result) => {
+    const senha = req.body.senha
+    connection.query(`update funcionarios set nome = "${nome}", email = "${email}", telefone = ${telefone}, salario = ${salario}, senha = "${senha}" where id = ${id}`, (err, result) => {
         console.log(result)
         console.log(err)
         res.send(result)
