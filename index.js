@@ -276,7 +276,7 @@ app.post("/registrarProfessores", (req, res) => {
     const salario = req.body.salario
     const senha = req.body.senha
     const id_usuario = req.body.id_usuario
-    connection.query(`insert into funcionarios (nome, email, telefone, data_contratacao, id_usuario, senha) values ("${nome}", "${email}", "${telefone}", now(), ${id_usuario}, "${senha}");`, (err, result) => {
+    connection.query(`insert into funcionarios (nomeProfessor, email, telefone, data_contratacao, id_usuario, senha) values ("${nome}", "${email}", "${telefone}", now(), ${id_usuario}, "${senha}");`, (err, result) => {
         res.send(result)
         console.log(result)
         console.log(err)
@@ -299,7 +299,7 @@ app.post("/editarProfessores", (req, res) => {
     const telefone = req.body.telefone
     const id = req.body.id
     const senha = req.body.senha
-    connection.query(`update funcionarios set nome = "${nome}", email = "${email}", telefone = ${telefone}, senha = "${senha}" where id = ${id}`, (err, result) => {
+    connection.query(`update funcionarios set nomeProfessor = "${nome}", email = "${email}", telefone = ${telefone}, senha = "${senha}" where id = ${id}`, (err, result) => {
         console.log(result)
         console.log(err)
         res.send(result)
