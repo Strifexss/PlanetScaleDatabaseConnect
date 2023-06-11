@@ -276,7 +276,7 @@ app.post("/registrarProfessores", (req, res) => {
     const salario = req.body.salario
     const senha = req.body.senha
     const id_usuario = req.body.id_usuario
-    connection.query(`insert into funcionarios (nome, email, telefone, salario, data_contratacao, id_usuario, senha) values ("${nome}", "${email}", "${telefone}", ${salario}, now(), ${id_usuario}, "${senha}");`, (err, result) => {
+    connection.query(`insert into funcionarios (nome, email, telefone, data_contratacao, id_usuario, senha) values ("${nome}", "${email}", "${telefone}", now(), ${id_usuario}, "${senha}");`, (err, result) => {
         res.send(result)
         console.log(result)
         console.log(err)
